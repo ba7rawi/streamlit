@@ -8,12 +8,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import LinearRegression
-import locale
-# try:
-#     from kiwi.datatypes import currency
-# # locale.setlocale(locale.LC_ALL, '')
-# except:
-#     locale.setlocale(locale.LC_ALL, 'en_US')
+
 def get_vals(dic,keys):
     values = []
     for i in keys:
@@ -60,8 +55,4 @@ def plot_table(df, cols):
     st.plotly_chart(fig)
 
 def curr(n):
-    try:
-        x =(locale.currency(n, grouping=True))
-    except:
-        x = (n)
-    return x
+   return "${:,.2f}". format(n)
