@@ -62,23 +62,23 @@ elif choice == 'Dashboard':
         grouped = mylib.group_by(df, 'Item_Type').sort_values(ascending=False)
         with kpi01:
             st.markdown(f"## {grouped.index[0]}")
-            st.markdown(f"<h1 style='text-align: center; color: {num_color};background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[0])}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: {num_color};background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[0])}</h1>", unsafe_allow_html=True)
 
         with kpi02:
             st.markdown(f"## {grouped.index[1]}")
-            st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[1])}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[1])}</h1>", unsafe_allow_html=True)
 
         with kpi03:
             st.markdown(f"## {grouped.index[2]}")
-            st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[2])}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[2])}</h1>", unsafe_allow_html=True)
 
         with kpi04:
             st.markdown(f"## {grouped.index[3]}")
-            st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[3])}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[3])}</h1>", unsafe_allow_html=True)
 
         with kpi05:
             st.markdown(f"## {grouped.index[4]}")
-            st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[4])}</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[4])}</h1>", unsafe_allow_html=True)
 
         st.markdown("<h1 style='text-align: center;' >Total</h1>", unsafe_allow_html=True)
         total_amt = df['Item_Outlet_Sales'].sum()
