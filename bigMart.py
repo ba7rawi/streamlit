@@ -127,7 +127,8 @@ elif choice == 'Machine Learning':
          float(outlet_type_val),
           float(item_v), 
           float(Item_weight), 
-          scaled_year]])
+          scaled_year]])[0]
+          
     st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color};padding:20px'>{mylib.curr(total_amt)}</h1>", unsafe_allow_html=True)
 elif choice == 'About':
     b1, b2 = st.beta_columns(2)
