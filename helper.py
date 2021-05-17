@@ -60,4 +60,7 @@ def plot_table(df, cols):
     st.plotly_chart(fig)
 
 def curr(n):
-    return (locale.currency(n, grouping=True))
+    try:
+        return (locale.currency(n, grouping=True))
+    except:
+        return (n)
