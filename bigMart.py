@@ -1,3 +1,4 @@
+from ipywidgets.widgets.widget import _show_traceback
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -48,8 +49,14 @@ if choice == 'Create Your Own Report':
             st.plotly_chart(fig)
     
 elif choice == 'Dashboard':
-    box_color = st.sidebar.color_picker('boxes background color', value='#1a322d')
-    num_color = st.sidebar.color_picker('numbers color', value = '#d8e131')
+    try:
+        box_color = st.sidebar.color_picker('boxes background color', value='#1a322d')
+    except:
+        box_color = '#1a322d'
+    try:
+        num_color = st.sidebar.color_picker('numbers color', value = '#d8e131')
+    except:
+        num_color = '#d8e131'
     st.write('# Dashboard')
     filename = 'Train'
     if filename:
