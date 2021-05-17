@@ -47,14 +47,13 @@ if choice == 'Create Your Own Report':
             if len(grouped) > 10:
                 n_cat = st.select_slider('Choose the number of categories to view', [i for i in range(0,len(grouped))], value=10)
                 st.write(f'### Too many categories({len(grouped)}), so we picked the top {n_cat}')
-                # fig = go.Figure(data=[go.Pie(labels=grouped.index.tolist()[:n_cat], values=grouped.values[:n_cat])])
                 fig = go.Figure(data=[go.Bar(x=grouped.index.tolist()[:n_cat], y=grouped.values[:n_cat])])
-
             else:
                 fig = go.Figure(data=[go.Bar(x=grouped.index.tolist(), y=grouped.values)])
-
+            fig.update_xaxes(title='Sales per ' + col_to_groupby)
             st.plotly_chart(fig)
-    
+            st.write(f"### {grouped.index[0]} category has the lead over the rest categories with a value of {mylib.curr(grouped.values[0])}")
+
 elif choice == 'Dashboard':
     try:
         box_color = st.sidebar.color_picker('boxes background color', value='#1a322d')
@@ -99,7 +98,8 @@ elif choice == 'Dashboard':
         st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color};padding:20px'>{mylib.curr(total_amt)}</h1>", unsafe_allow_html=True)
 
         st.markdown("<hr/>",unsafe_allow_html=True)
-
+        st.write(f"### {grouped.index[0]} has achieved the highest amount of sales between all categories with values of {mylib.curr(grouped[0])}, {mylib.curr(grouped[1])} respectively!")
+        st.markdown("<hr/>",unsafe_allow_html=True)
         
         p1, p2 = st.beta_columns(2)
         with p1:

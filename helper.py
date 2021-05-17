@@ -34,7 +34,9 @@ def plot(df,col, v_type):
         elif v_type =='Histogram':
             fig = go.Figure(data=[go.Bar(x=keys, y=vals)])
 
+        fig.update_xaxes(title=col)
         st.plotly_chart(fig)
+        st.write(f"### {keys[0]} category has the conquared the other categories with a value of {vals[0]}")
 
 def group_by(df, group_on, target_col='Item_Outlet_Sales'):
     grouped = df.groupby([group_on]).sum()[target_col]
