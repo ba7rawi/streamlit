@@ -43,9 +43,16 @@ if choice == 'Create Your Own Report':
         st.write("Have Some Insights!")
         col_to_groupby = st.selectbox('Choose a Column to Group-by', [None] + df.columns.tolist())
         if col_to_groupby:
-            grouped = mylib.group_by(df, col_to_groupby)
-            st.write(grouped)
-            fig = go.Figure(data=[go.Pie(labels=grouped.index.tolist(), values=grouped.values)])
+            grouped = mylib.group_by(df, col_to_groupby).sort_values(ascending=False)
+            if len(grouped) > 10:
+                n_cat = st.select_slider('Choose the number of categories to view', [i for i in range(0,len(grouped))], value=10)
+                st.write(f'### Too many categories({len(grouped)}), so we picked the top {n_cat}')
+                # fig = go.Figure(data=[go.Pie(labels=grouped.index.tolist()[:n_cat], values=grouped.values[:n_cat])])
+                fig = go.Figure(data=[go.Bar(x=grouped.index.tolist()[:n_cat], y=grouped.values[:n_cat])])
+
+            else:
+                fig = go.Figure(data=[go.Bar(x=grouped.index.tolist(), y=grouped.values)])
+
             st.plotly_chart(fig)
     
 elif choice == 'Dashboard':

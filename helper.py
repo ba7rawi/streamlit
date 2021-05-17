@@ -22,7 +22,7 @@ def plot(df,col, v_type):
         num_of_keys = len(df[col].unique()) 
         if num_of_keys > 10:
             top_n = st.select_slider('Choose How Many Categories to View',[i for i in range(0,num_of_keys)], value=10)
-            st.write('Column Contains too many keys, So We Picked the Top {0} Categories in this Column'.format(top_n))
+            st.write(f'Column Contains too many keys ({num_of_keys}), So We Picked the Top {top_n} Categories in this Column')
             dic = dict(zip(df[col].unique(),df[col].value_counts()))
             sorted_keys = sorted(dic, key=dic.get)
             sorted_keys.reverse()
