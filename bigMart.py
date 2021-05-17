@@ -137,6 +137,8 @@ elif choice == 'Machine Learning':
           scaled_year]])[0]
           
     st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color};padding:20px'>{mylib.curr(total_amt)}</h1>", unsafe_allow_html=True)
+    st.write(f"### We are predicting a value of {mylib.curr(total_amt)}, for the following values: Item MRP: {item_mrp}, Outlet Type: {outlet_type}, Item Visibility: {item_v}, Item Weight: {Item_weight} and Outlet Establishment Year: {year}")
+    st.write(f"### Our error (RMSE) is on average $207, therefore our prediction might be off by $207 which is somewhere between{mylib.curr(total_amt-207)} and {mylib.curr(total_amt+207)}")
 elif choice == 'About':
     b1, b2 = st.beta_columns(2)
     with b1:
