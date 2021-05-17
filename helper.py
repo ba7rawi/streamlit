@@ -9,9 +9,11 @@ from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import LinearRegression
 import locale
-
+try:
+    from kiwi.datatypes import currency
 # locale.setlocale(locale.LC_ALL, '')
-locale.setlocale(locale.LC_ALL, 'en_US')
+except:
+    locale.setlocale(locale.LC_ALL, 'en_US')
 def get_vals(dic,keys):
     values = []
     for i in keys:
