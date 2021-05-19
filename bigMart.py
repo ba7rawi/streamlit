@@ -20,7 +20,7 @@ choice = st.sidebar.selectbox("Menu",menu)
 if choice == 'Create Your Own Report':
     
     files = glob.glob("datasets/*.csv")
-    files_names = [i.split('\\')[-1] for i in files]
+    files_names = [i.split('/')[-1] for i in files]
     filename = st.selectbox('Plesae Enter File Name', files_names)
     
     if filename:
