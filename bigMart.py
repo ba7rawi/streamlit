@@ -185,7 +185,7 @@ elif choice == 'Machine Learning':
 elif choice == 'About':
     b1, b2 = st.beta_columns([5,1])
     with b1:
-        st.write('# Made by Ibrahim Al-Bahri')
+        st.write('# Ibrahim Al-Bahri')
         st.write('## Supervisor: Dr. Wissam Sammouri')
         st.write('## MSBA CLASS 2021')
         st.markdown("## <a style='text-align: center;' href='https://www.linkedin.com/in/ibrahim-al-bahri/' target='_blank'>LinkedIn</a>", unsafe_allow_html=True)
