@@ -59,7 +59,7 @@ def plot_table(df, cols):
 def curr(n):
    return "${:,.2f}". format(n)
 
-def clean_dataset(df, num_strategy='median', cat_strategy='most_frequent'):
+def clean_dataset(df, num_strategy='median', cat_strategy='most_frequent', fill_val='missing'):
     
     report_before = pd.DataFrame(np.sum(df.isnull())).T
     
@@ -70,7 +70,11 @@ def clean_dataset(df, num_strategy='median', cat_strategy='most_frequent'):
     num_fitted = num_imputer.fit_transform(df[num_features])
     num_df = pd.DataFrame(num_fitted, columns = num_features)
     
-    cat_imputer = SimpleImputer(missing_values=np.nan, strategy=cat_strategy)
+    if cat_strategy == 'constant':
+        cat_imputer = SimpleImputer(missing_values=np.nan, strategy=cat_strategy, fill_value=fill_val)
+    else:
+        cat_imputer = SimpleImputer(missing_values=np.nan, strategy=cat_strategy)
+
     cat_fitted = cat_imputer.fit_transform(df[cat_features])
     cat_df = pd.DataFrame(cat_fitted, columns = cat_features)
     

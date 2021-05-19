@@ -77,13 +77,14 @@ elif choice == 'Dashboard':
     if clean:
         num_strategy = st.sidebar.selectbox("Choose A strategy to replace the numerical values, it's Median by default", ['median', 'mean'])
         str_strategy = st.sidebar.selectbox("Choose A strategy to replace the categorical values, it's the most frequent by default", ['most_frequent', 'constant'])
+        fill_val = 'missing'
         if str_strategy == 'constant':
-            st.sidebar.text_input('Please Enter the prefered value')
+            fill_val = st.sidebar.text_input('Please Enter the prefered value', value="missing")
         st.sidebar.markdown("<hr/>",unsafe_allow_html=True)
     
         if st.sidebar.checkbox(" Remove Outliers as well "):
             df = mylib.remove_outliers(df)
-        df = mylib.clean_dataset(df,num_strategy=num_strategy, cat_strategy =str_strategy)
+        df = mylib.clean_dataset(df,num_strategy=num_strategy, cat_strategy =str_strategy, fill_val=fill_val)
     
     
     st.sidebar.markdown("<hr/>",unsafe_allow_html=True)
