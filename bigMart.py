@@ -71,82 +71,80 @@ if choice == 'Create Your Own Report':
 elif choice == 'Dashboard':
     
     st.write('# BigMart Sales Analysis')
-    filename = 'Train'
-    if filename:
-        df = pd.read_csv(r"{0}".format(filename)+".csv")    
-        clean = st.sidebar.checkbox("Clean Dataset")
-        st.sidebar.image('imgs/cleaning-tools.png', width=40)
-        if clean:
-            num_strategy = st.sidebar.selectbox("Choose A strategy to replace the numerical values, it's Median by default", ['median', 'mean'])
-            str_strategy = st.sidebar.selectbox("Choose A strategy to replace the categorical values, it's the most frequent by default", ['most_frequent', 'constant'])
-            if str_strategy == 'constant':
-                st.sidebar.text_input('Please Enter the prefered value')
-            st.sidebar.markdown("<hr/>",unsafe_allow_html=True)
-        
-            if st.sidebar.checkbox(" Remove Outliers as well "):
-                df = mylib.remove_outliers(df)
-            df = mylib.clean_dataset(df,num_strategy=num_strategy, cat_strategy =str_strategy)
-        
-        
+    df = pd.read_csv("datasets/Train.csv")    
+    clean = st.sidebar.checkbox("Clean Dataset")
+    st.sidebar.image('imgs/cleaning-tools.png', width=40)
+    if clean:
+        num_strategy = st.sidebar.selectbox("Choose A strategy to replace the numerical values, it's Median by default", ['median', 'mean'])
+        str_strategy = st.sidebar.selectbox("Choose A strategy to replace the categorical values, it's the most frequent by default", ['most_frequent', 'constant'])
+        if str_strategy == 'constant':
+            st.sidebar.text_input('Please Enter the prefered value')
         st.sidebar.markdown("<hr/>",unsafe_allow_html=True)
-        st.sidebar.write("## Try different colors")
-        box_color = st.sidebar.color_picker('boxes background color', value='#1a322d')
-        num_color = st.sidebar.color_picker('numbers color', value = '#d8e131')
-
-        st.write('## Have a look at the data!')
-        st.write(df.head())
-        st.write('## **Sales per Item Type**')
-        kpi01, kpi02, kpi03, kpi04, kpi05 = st.beta_columns(5)
     
-        grouped = mylib.group_by(df, 'Item_Type').sort_values(ascending=False)
-        with kpi01:
-            st.markdown(f"### {grouped.index[0]}")
-            st.markdown(f"<h2 style='text-align: center;color: {num_color};background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[0])}</h1>", unsafe_allow_html=True)
+        if st.sidebar.checkbox(" Remove Outliers as well "):
+            df = mylib.remove_outliers(df)
+        df = mylib.clean_dataset(df,num_strategy=num_strategy, cat_strategy =str_strategy)
+    
+    
+    st.sidebar.markdown("<hr/>",unsafe_allow_html=True)
+    st.sidebar.write("## Try different colors")
+    box_color = st.sidebar.color_picker('boxes background color', value='#1a322d')
+    num_color = st.sidebar.color_picker('numbers color', value = '#d8e131')
 
-        with kpi02:
-            st.markdown(f"### {grouped.index[1]}")
-            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[1])}</h1>", unsafe_allow_html=True)
+    st.write('## Have a look at the data!')
+    st.write(df.head())
+    st.write('## **Sales per Item Type**')
+    kpi01, kpi02, kpi03, kpi04, kpi05 = st.beta_columns(5)
 
-        with kpi03:
-            st.markdown(f"### {grouped.index[2]}")
-            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[2])}</h1>", unsafe_allow_html=True)
+    grouped = mylib.group_by(df, 'Item_Type').sort_values(ascending=False)
+    with kpi01:
+        st.markdown(f"### {grouped.index[0]}")
+        st.markdown(f"<h2 style='text-align: center;color: {num_color};background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[0])}</h1>", unsafe_allow_html=True)
 
-        with kpi04:
-            st.markdown(f"### {grouped.index[3]}")
-            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[3])}</h1>", unsafe_allow_html=True)
+    with kpi02:
+        st.markdown(f"### {grouped.index[1]}")
+        st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[1])}</h1>", unsafe_allow_html=True)
 
-        with kpi05:
-            st.markdown(f"### {grouped.index[4]}")
-            st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[4])}</h1>", unsafe_allow_html=True)
+    with kpi03:
+        st.markdown(f"### {grouped.index[2]}")
+        st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[2])}</h1>", unsafe_allow_html=True)
 
-        st.markdown("<h1 style='text-align: center;' >Total</h1>", unsafe_allow_html=True)
-        total_amt = df['Item_Outlet_Sales'].sum()
-        st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color};padding:20px'>{mylib.curr(total_amt)}</h1>", unsafe_allow_html=True)
+    with kpi04:
+        st.markdown(f"### {grouped.index[3]}")
+        st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content;padding:20px'>{mylib.curr(grouped[3])}</h1>", unsafe_allow_html=True)
 
-        st.markdown("<hr/>",unsafe_allow_html=True)
-        st.write(f"### {grouped.index[0]}, and {grouped.index[1]} has achieved the highest amount of sales between all categories with values of {mylib.curr(grouped[0])}, {mylib.curr(grouped[1])} respectively!")
-        st.markdown("<hr/>",unsafe_allow_html=True)
-        
-        p1, p2 = st.beta_columns(2)
-        with p1:
-            st.markdown('### Sales per Outlet Location Type')
-            mylib.plot(df, 'Outlet_Location_Type', 'Pie Chart')
-        with p2:
-            st.markdown('### Sales per Outlet Size')
-            mylib.plot(df, 'Outlet_Size','Histogram')
-        
-        st.markdown("<hr/> <br>",unsafe_allow_html=True)
-        st.write('## The Below Area chart shows the amount of sales in all BigMart stores over the years from 1985 till 2009 ')
-        gg = df.groupby(['Outlet_Establishment_Year']).sum()['Item_Outlet_Sales']
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=gg.index, y=gg.values, fill='tozeroy', line_color='indigo',))
-        fig.update_layout(
-            margin=dict(l=20, r=20, t=20, b=20),
-            paper_bgcolor="LightSteelBlue",
-            width=1500
-        )
-        st.plotly_chart(fig, use_container_width=True)
-        st.write("## The above area chart shows that BigMart had a great start in 1985 with total sales of $3.63M, but they faced a major sitback in 1998 they only made $188 k, and it took them one year to recover in 1999 to reach $2.2M.")
+    with kpi05:
+        st.markdown(f"### {grouped.index[4]}")
+        st.markdown(f"<h2 style='text-align: center; color: {num_color}; background-color: {box_color}; width: fit-content; padding:20px'>{mylib.curr(grouped[4])}</h1>", unsafe_allow_html=True)
+
+    st.markdown("<h1 style='text-align: center;' >Total</h1>", unsafe_allow_html=True)
+    total_amt = df['Item_Outlet_Sales'].sum()
+    st.markdown(f"<h1 style='text-align: center; color: {num_color}; background-color: {box_color};padding:20px'>{mylib.curr(total_amt)}</h1>", unsafe_allow_html=True)
+
+    st.markdown("<hr/>",unsafe_allow_html=True)
+    st.write(f"### {grouped.index[0]}, and {grouped.index[1]} has achieved the highest amount of sales between all categories with values of {mylib.curr(grouped[0])}, {mylib.curr(grouped[1])} respectively!")
+    st.markdown("<hr/>",unsafe_allow_html=True)
+    
+    p1, p2 = st.beta_columns(2)
+    with p1:
+        st.markdown('### Sales per Outlet Location Type')
+        mylib.plot(df, 'Outlet_Location_Type', 'Pie Chart')
+    with p2:
+        st.markdown('### Sales per Outlet Size')
+        mylib.plot(df, 'Outlet_Size','Histogram')
+    
+    st.markdown("<hr/> <br>",unsafe_allow_html=True)
+    st.write('## The Below Area chart shows the amount of sales in all BigMart stores over the years from 1985 till 2009 ')
+    gg = df.groupby(['Outlet_Establishment_Year']).sum()['Item_Outlet_Sales']
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=gg.index, y=gg.values, fill='tozeroy', line_color='indigo',))
+    fig.update_layout(
+        margin=dict(l=20, r=20, t=20, b=20),
+        paper_bgcolor="LightSteelBlue",
+        width=1500
+    )
+    st.plotly_chart(fig, use_container_width=True)
+    st.write("## The above area chart shows that BigMart had a great start in 1985 with total sales of $3.63M, but they faced a major sitback in 1998 they only made $188 k, and it took them one year to recover in 1999 to reach $2.2M.")
 
 elif choice == 'Machine Learning':
     st.write('# Welcome to the Prediction Area')
